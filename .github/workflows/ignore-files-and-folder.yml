@@ -14,9 +14,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           path: .
           exclude: |
-            amplify/**
-            amplifyconfiguration.json
-            awsconfiguration.json
+            README.md
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

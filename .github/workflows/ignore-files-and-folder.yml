@@ -1,0 +1,25 @@
+name: Exclude sensitive files
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  exclude-sensitive-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          path: .
+          exclude: |
+            amplify/**
+            amplifyconfiguration.json
+            awsconfiguration.json
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.pull_request.head.ref }}
+          force: true
